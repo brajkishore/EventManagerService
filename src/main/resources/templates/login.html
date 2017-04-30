@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Event Managing Panel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/custom.css" />
+
+
+</head>
+<body>
+
+	<div class="container">
+
+		<h1 class="welcome text-center">Welcome to Event Panel</h1>
+		<div class="card card-container">
+			<h2 class='login_title text-center'>Login</h2>
+			<hr>
+
+			<!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+				<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+			</div>
+			 -->
+			<form class="form-signin" th:action="@{/login}"
+				th:object="${loginForm}" method="post">
+				<span id="reauth-username" class="reauth-username"></span>
+				<p class="input_title">Username</p>
+				<input type="text" id="inputUsername" class="login_box"
+					th:field="*{username}" placeholder="Your username" required
+					autofocus />
+				<p class="input_title">Password</p>
+				<input type="password" id="inputPassword" class="login_box"
+					th:field="*{password}" placeholder="******" required />
+				<button class="btn btn-lg btn-primary" type="submit">Login</button>
+			</form>
+			<!-- /form -->
+		</div>
+		<!-- /card-container -->
+
+	</div>
+	<!-- /.container -->
+
+
+
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
