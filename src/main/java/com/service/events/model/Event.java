@@ -18,6 +18,17 @@ public class Event {
 	private String sTime;
 	private String eTime;
 	private String extras[];
+	private EventStatus status;
+	private String fcmName;
+	
+	private String scheduleTime;
+	public String getScheduleTime() {
+		return scheduleTime;
+	}
+	public void setScheduleTime(String scheduleTime) {
+		this.scheduleTime = scheduleTime;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -66,11 +77,26 @@ public class Event {
 	public void setExtras(String[] extras) {
 		this.extras = extras;
 	}
+	
+	public EventStatus getStatus() {
+		return status;
+	}
+	public void setStatus(EventStatus status) {
+		this.status = status;
+	}
+	public String getFcmName() {
+		return fcmName;
+	}
+	public void setFcmName(String fcmName) {
+		this.fcmName = fcmName;
+	}
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", sDesc=" + sDesc + ", imgUrl=" + imgUrl + ", lDesc=" + lDesc
-				+ ", sTime=" + sTime + ", eTime=" + eTime + ", extras=" + Arrays.toString(extras) + "]";
+				+ ", sTime=" + sTime + ", eTime=" + eTime + ", extras=" + Arrays.toString(extras) + ", status=" + status
+				+ ", fcmName=" + fcmName + ", scheduleTime=" + scheduleTime + "]";
 	}
 	
-
+	
+	
 }
