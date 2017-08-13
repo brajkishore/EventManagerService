@@ -4,9 +4,13 @@
 <title>Event Managing Panel</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<meta th:name="_csrf" th:content="${_csrf.token}"/>
+<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/loading.css" />
 
 
 </head>
@@ -15,133 +19,83 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Spring Boot</a>
+				<a class="navbar-brand" href="#">Spring Boot</a>				
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
+				<ul class="nav navbar-nav navbar-left">
+					<li class="active"><a href="./welcome">Home</a></li>									
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="normal"><a href="./event">Add Event</a></li>
+					<li class="normal"><a href="javascript: document.logoutForm.submit()">Logout</a></li>
+				</ul>
+				 <form name="logoutForm" th:action="@{/app-logout}" method="post" th:hidden="true">
+					      <input hidden type="submit"/>
+				</form>   				
 			</div>
 		</div>
 	</nav>
-
-
-
-	<div class="container">
-
+	
+	<div class="container">		
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-				<h1 class='login_title text-center'>Add Event</h1>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h1 class='eventListTitle '>Ongoing Events</h1>
 				<hr>
-				<form class="card" th:action="@{/events}" th:object="${event}"
-					method="post">
-					<p class="alert alert-danger" th:if="${hasError}"
-						th:text="${error}"></p>
-
-					<div class="form-group">
-						<label for="datetimepicker1">Schedule Time</label>
-						<div class='input-group date' id='datetimepicker1'>
-							<input type='text' th:field="*{scheduleTime}"
-								class="form-control" placeholder="DD/MM/YYYY hh:mm:ss" required />
-							<span class="input-group-addon"> <span
-								class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Event Name</label> <input type="text"
-							class="form-control" th:field="*{name}" id="name"
-							placeholder="Event name" required autofocus />
-					</div>
-
-					<div class="form-group">
-						<label for="imgurl">Image Url</label> <input type="text"
-							class="form-control" th:field="*{imgUrl}" id="imgurl"
-							placeholder="Optional" autofocus />
-					</div>
-
-					<div class="form-group">
-						<label for="sdesc">Brief Details</label>
-						<textarea class="form-control" th:field="*{sDesc}" id="sdesc"
-							rows="2" placeholder="Brief Details" required autofocus></textarea>
-					</div>
-
-					<div class="form-group">
-						<label for="ldesc">Full Details</label>
-						<textarea class="form-control" th:field="*{lDesc}" id="ldesc"
-							rows="3" placeholder="Optional" autofocus></textarea>
-					</div>
-					<div class="form-group">
-						<label for="stime">Event Start Time</label> <input type="text"
-							class="form-control" th:field="*{sTime}" placeholder="Optional"
-							id="stime" autofocus />
-					</div>
-
-					<div class="form-group">
-						<label for="etime">Event End Time</label> <input type="text"
-							class="form-control" id="etime" th:field="*{eTime}"
-							placeholder="Optional" autofocus />
-					</div>
-
-					<button class="btn btn-lg btn-primary" type="submit">Save</button>
-				</form>
-				<!-- /form -->
-			</div>
-
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-				<h1>Below events are</h1>
-
-				<div class="card-group">
+				<div class="card-group" id="eventGrp">
 					<div class="card col-md-4 col-lg-4 boxShadow"
 						th:each="event : ${events}">
 						<img class="card-img-top img-responsive"
 							th:src="${(event.getImgUrl()!=null 
 									&& !#strings.isEmpty(event.getImgUrl()))
 									?event.getImgUrl():'https://maxcdn.icons8.com/dotty/PNG/80/Very_Basic/calendar-80.png'}"
-							alt="Card image cap">
+							alt="Card image cap">						
 						<div class="card-block">
-							<h4 class="card-title" th:text="${event.getName()}"></h4>
-							<p class="card-text" th:text="${event.getsDesc()}"></p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</p>
+							<h4 class="card-title text-left eventTitle ellipsis" th:text="${event.getName()}"></h4>
+							<p class="card-text text-left eventDesc shortDescEllipsis" th:text="${event.getsDesc()}"></p>							
 						</div>
-					</div>
-					<!-- <ul>
-						<li th:each="event : ${events}">
-							<div th:text="${event.getName()}"></div>
-						</li>
-					</ul> -->
+						<a type="button" class="btn btn-link pull-left noUnderline deleteCard" th:name="${event.getName()}" th:id="${event.getId()}" >Delete</a>
+						<a type="button" class="btn btn-link pull-right noUnderline" th:href="@{./events/{id}(id=${event.getId()})}">Edit</a>														
+					</div>				
 				</div>
 			</div>
-		</div>
-	</div>
+			</div>
+	</div>	
 	<!-- /.container -->
+	
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title" id="myModalLabel">Confirm to delete</h4>
+      </div>
+      
+      <div class="modal-body">        
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left confirm2delete" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal">No</button>        
+      </div>
+                
+    </div>
+  </div>
+</div>
 
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+<div id="loading" style="display:none">
+                <ul class="bokeh">
+                    <li></li>
+                    <li></li>
+                    <li></li>                    
+                </ul>
+</div>
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">M</h4>
-				</div>
-				<div class="modal-body">
-					<p>Some text in the modal.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
 
-		</div>
-	</div>
-
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/moment-with-locales.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/custom.js"></script>
+	<script type="text/javascript" src="/js/jquery.dotdotdot.min.js"></script>
 	<script type="text/javascript"
 		src="/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">

@@ -2,11 +2,6 @@
 body, html {
     height: 100%;
     background-repeat: no-repeat;
-background: rgb(185,210,224); /* Old browsers */
-background: -moz-radial-gradient(center, ellipse cover,  rgba(185,210,224,1) 0%, rgba(187,214,228,1) 0%, rgba(186,211,225,1) 15%, rgba(186,211,225,1) 38%, rgba(169,199,215,1) 68%, rgba(169,199,215,1) 68%, rgba(169,199,215,1) 82%, rgba(158,191,208,1) 100%); /* FF3.6-15 */
-background: -webkit-radial-gradient(center, ellipse cover,  rgba(185,210,224,1) 0%,rgba(187,214,228,1) 0%,rgba(186,211,225,1) 15%,rgba(186,211,225,1) 38%,rgba(169,199,215,1) 68%,rgba(169,199,215,1) 68%,rgba(169,199,215,1) 82%,rgba(158,191,208,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: radial-gradient(ellipse at center,  rgba(185,210,224,1) 0%,rgba(187,214,228,1) 0%,rgba(186,211,225,1) 15%,rgba(186,211,225,1) 38%,rgba(169,199,215,1) 68%,rgba(169,199,215,1) 68%,rgba(169,199,215,1) 82%,rgba(158,191,208,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9d2e0', endColorstr='#9ebfd0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 }
 
@@ -30,8 +25,8 @@ hr{
     font-family: "myriad-pro",sans-serif;
     font-style: normal;
     font-weight: 100;
-    color:#FFFFFF;
-    margin-bottom:25px;
+    color:#00695C;
+    margin-bottom:50px;
     margin-top:50px;
 
 }
@@ -40,26 +35,16 @@ hr{
     font-family: "myriad-pro",sans-serif;
     font-style: normal;
     font-weight: 100;
-    color:rgba(164, 164, 164, 0.44);
+    color:#00695C;
 }
 
 .card-container.card {
     max-width: 350px;
+    align:center;
+    float:none;
 
 }
 
-.btn {
-    font-weight: 700;
-    height: 36px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
-    border-radius:0;
-    background:#43A6EB;
-    height: 55px;
-    margin-bottom:10px;
-}
 
 /*
  * Card component
@@ -76,7 +61,7 @@ hr{
     border-radius: 2px;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 2px 2px rgba(0.1, 0.1, 0.1, 0.3);
 }
 
 .profile-img-card {
@@ -181,4 +166,80 @@ hr{
 .boxShadow { 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  max-width: 20rem;
+  margin-right:10px;
+  height:300px;
+  padding:0px;  
 }
+
+.eventListTitle{
+    font-family: "myriad-pro",sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    color: #00695C;    
+}
+.card-img-top{
+  width:100%;
+  height:150px;  
+}
+
+.card {                
+        margin-bottom: 10px; /* Added */
+        float:left;       
+}
+@media (max-width:767px) {
+ .nav.navbar-nav.pull-right {
+   float: left !important;
+ }
+} 
+
+
+.eventForm {
+    max-width: 60%;
+    align:center;
+    float:none;
+}
+
+.eventTitle{
+	
+	padding-left:8px;
+	padding-right:8px;
+	
+}
+.eventDesc{
+	
+	padding-left:8px;
+	padding-right:8px;
+	height:70px;
+	
+}
+
+.noUnderline{	
+	text-decoration: none !important;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  while-space:nowrap;   
+}
+
+
+.eventDesc .ellipsis {
+	display: -webkit-box;
+ -webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+   
+} */
+
+#eventGrp .card-block{
+	height: 98px	
+	
+}
+
+.shortDescEllipsis{
+	height: 64px
+}
+
+
+

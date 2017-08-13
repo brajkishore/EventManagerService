@@ -14,9 +14,8 @@ public class Event {
 	private String name;
 	private String sDesc;
 	private String imgUrl;
-	private String lDesc;
-	private String sTime;
-	private String eTime;
+	private String bgImgUrl;
+	private String lDesc;	
 	private String extras[];
 	private EventStatus status;
 	private String fcmName;
@@ -59,18 +58,7 @@ public class Event {
 	public void setlDesc(String lDesc) {
 		this.lDesc = lDesc;
 	}
-	public String getsTime() {
-		return sTime;
-	}
-	public void setsTime(String sTime) {
-		this.sTime = sTime;
-	}
-	public String geteTime() {
-		return eTime;
-	}
-	public void seteTime(String eTime) {
-		this.eTime = eTime;
-	}
+	
 	public String[] getExtras() {
 		return extras;
 	}
@@ -93,9 +81,18 @@ public class Event {
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", sDesc=" + sDesc + ", imgUrl=" + imgUrl + ", lDesc=" + lDesc
-				+ ", sTime=" + sTime + ", eTime=" + eTime + ", extras=" + Arrays.toString(extras) + ", status=" + status
-				+ ", fcmName=" + fcmName + ", scheduleTime=" + scheduleTime + "]";
+				+ ", extras=" + Arrays.toString(extras) + ", status=" + status + ", fcmName=" + fcmName
+				+ ", scheduleTime=" + scheduleTime + "]";
 	}
+	public String getBgImgUrl() {
+		return bgImgUrl;
+	}
+	public void setBgImgUrl(String bgImgUrl) {
+		this.bgImgUrl = bgImgUrl;
+	}
+
+	
+	
 	
 	
 	

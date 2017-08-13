@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Event Managing Panel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/custom.css" />
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Spring Boot</a>				
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li class="normal"><a href="../welcome">Home</a></li>									
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="disabled"><a href="../event">Add Event</a></li>
+					<li class="normal"><a href="javascript: document.logoutForm.submit()">Logout</a></li>
+				</ul>
+				 <form name="logoutForm" th:action="@{/app-logout}" method="post" th:hidden="true">
+					      <input hidden type="submit"/>
+					   </form>   				
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">		
+		<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h1 class='login_title text-center'>Update Event</h1>
+				<hr>
+				<form class="card eventForm" th:action="@{../events}" th:object="${event}"
+					method="post">
+					<p class="alert alert-danger" th:if="${hasError}"
+						th:text="${error}"></p>
+					
+					<div class="form-group">
+						<label for="datetimepicker1">Schedule Time</label>
+						<div class='input-group date' id='datetimepicker1'>
+							<input type='text' th:field="*{scheduleTime}"
+								class="form-control" placeholder="DD/MM/YYYY hh:mm:ss" required />
+							<span class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					<div class="form-group" hidden>
+						<input type="text"
+							class="form-control" th:field="*{id}" id="id"/>
+					</div>
+					<div class="form-group">
+						<label for="name">Event Name</label> <input type="text"
+							class="form-control" th:field="*{name}" id="name"
+							placeholder="Event name" required autofocus />
+					</div>
+
+					<div class="form-group">
+						<label for="imgurl">Image Url</label> <input type="text"
+							class="form-control" th:field="*{imgUrl}" id="imgurl"
+							placeholder="Optional" autofocus />
+					</div>
+
+					<div class="form-group">
+						<label for="sdesc">Brief Details</label>
+						<textarea class="form-control" th:field="*{sDesc}" id="sdesc"
+							rows="2" placeholder="Brief Details" required autofocus></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="ldesc">Full Details</label>
+						<textarea class="form-control" th:field="*{lDesc}" id="ldesc"
+							rows="3" placeholder="Optional" autofocus></textarea>
+					</div>
+					<a type="button" class="btn btn-lg btn-danger noUnderline" th:href="@{../welcome}">Cancel</a>					
+					<button class="pull-right btn btn-lg btn-primary" type="submit">Save</button>
+				</form>
+				<!-- /form -->
+			</div>			
+					
+				
+			</div>
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/js/moment-with-locales.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript">
+		  $(function() {
+		    $('#datetimepicker1').datetimepicker(
+		    		{ format:"DD/MM/YYYY HH:mm:ss",		    			
+		    		});
+		  });
+</script>
+</body>
+</html>

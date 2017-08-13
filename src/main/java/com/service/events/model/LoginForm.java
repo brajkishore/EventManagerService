@@ -3,7 +3,7 @@ package com.service.events.model;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "credentials")
+//@Document(collection = "credentials")
 public class LoginForm {
 
 	private String id;
