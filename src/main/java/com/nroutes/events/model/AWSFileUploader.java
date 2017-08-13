@@ -20,10 +20,11 @@ import com.amazonaws.services.s3.transfer.Upload;
  *
  */
 public class AWSFileUploader {	
-	private static final String AWSAccessKeyId="AKIAIJBHFTTVAQOSWIFA";
-	private static final String AWSSecretKey="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";
-	private static final String BucketName="omio";
-	private static final String awsURI="https://s3.ap-south-1.amazonaws.com/";
+	
+	private static final String AWSAccessKeyId="xxxxx";
+	private static final String AWSSecretKey="xx";
+	private static final String BucketName="xxxx";
+	private static final String awsURI="xxxxxxx";
 		
 	public String upload(String dataTempDir,String formattedFileName, MultipartFile part){
 		
