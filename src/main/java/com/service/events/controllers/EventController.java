@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,16 @@ import com.service.events.services.CredentialRepository;
 import com.service.events.services.EventService;
 import com.service.events.services.HttpProcessor;
 import com.service.events.services.HttpResponseListener;
+import com.service.events.services.StorageService;
 
 @Controller
 public class EventController {
 
 	@Autowired
 	CredentialRepository credentialRepository;
+
+	@Autowired
+	StorageService storageService;
 
 
 	@Resource(name = "httpProcessor")
@@ -93,20 +98,34 @@ public class EventController {
 
 	@Secured ({"ROLE_ADMIN"})
 	@PostMapping("/admin/events")
-	public String addEvent(@ModelAttribute Event event, BindingResult bindingResult, Model model) {
+	public String addEvent(@ModelAttribute Event event, BindingResult bindingResult, Model model,
+			final @RequestParam(name="imgFile",required = false) MultipartFile imgFile,
+			final @RequestParam(name="bgImgFile",required = false) MultipartFile bgImgFile) {
 
 		if (bindingResult.hasErrors()) {
 			// errors processing
 			System.out.println("Errors");
 		}
-
+		
 		try {
 			
 			System.out.println("Event :"+event);
 			SimpleDateFormat sdf = new SimpleDateFormat(Constant.TIME_FORMAT);
-
+			
+			if(StringUtils.isEmpty(event.getImgUrl()) && imgFile!=null){				
+				event.setImgUrl(storageService.store(imgFile));
+			}
+			
+			if(StringUtils.isEmpty(event.getBgImgUrl()) && bgImgFile!=null){				
+				event.setBgImgUrl(storageService.store(bgImgFile));
+			}
+			
+			
 			long delay = sdf.parse(event.getScheduleTime()).getTime() - (new Date()).getTime();			
 			Event updatedEvent = eventService.save(event);
+			
+			System.out.println("ImgFileName:"+imgFile.getName()+"::"+bgImgFile.getOriginalFilename());
+						
 			
 			if (delay >0){				
 				event.setStatus(EventStatus.SCHEDULED);				
@@ -119,9 +138,7 @@ public class EventController {
 			// TODO Auto-generated catch block
 			System.out.println("Error :" + e.getMessage());
 			model.addAttribute("hasError", true);
-			model.addAttribute("error", "Event Name exists !!");
-			return "welcome";
-
+			model.addAttribute("error", "Event Name exists !!");			
 		}
 
 		model.addAttribute("events", eventService.findAll());
@@ -148,26 +165,6 @@ public class EventController {
 		model.addAttribute("events", eventService.findAll());
 		return "welcome";
 	}
-
 	
-	
-	@Secured ({"ROLE_ADMIN"})
-	@PutMapping("/admin/events")
-	public String updateEvent(@ModelAttribute Event event, BindingResult bindingResult, Model model) {
-
-		try {
-			eventService.deleteById(event.getId());
-			eventService.save(event);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			model.addAttribute("hasError", true);
-			model.addAttribute("error", "Event update error !!");
-			return "welcome";
-		}
-
-		model.addAttribute("events", eventService.findAll());
-		return "welcome";
-	}
-
 		 
 }

@@ -45,14 +45,20 @@ $(function(){
 	//To ellipsis the text of event short description
 	$(".shortDescEllipsis").dotdotdot()	
 	
+	$(".eventForm").submit(function(){
+	
+		console.log("pressed to submit");
+	})
 	
 	
-}).ajaxStart(function () {
-	
+}).ajaxStart(function () {	
 	console.log("loading start");
     $('#loading').show();  // show loading indicator
 }).ajaxStop(function() 
 		{
+	console.log("loading end");
+    $('#loading').hide();  // hide loading indicator
+}).ajaxError(function(){
 	console.log("loading end");
     $('#loading').hide();  // hide loading indicator
 });

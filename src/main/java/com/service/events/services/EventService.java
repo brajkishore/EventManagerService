@@ -41,7 +41,7 @@ public class EventService {
 					e.printStackTrace();
 				}
 				if(d1!=null && d2!=null)
-					return d1.compareTo(d2);
+					return d2.compareTo(d1);
 				
 				return 0;
 			}

@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/loading.css" />
 
 
 </head>
@@ -38,7 +39,7 @@
 				<h1 class='login_title text-center'>Update Event</h1>
 				<hr>
 				<form class="card eventForm" th:action="@{../events}" th:object="${event}"
-					method="post">
+					method="post" enctype="multipart/form-data">
 					<p class="alert alert-danger" th:if="${hasError}"
 						th:text="${error}"></p>
 					
@@ -63,12 +64,6 @@
 					</div>
 
 					<div class="form-group">
-						<label for="imgurl">Image Url</label> <input type="text"
-							class="form-control" th:field="*{imgUrl}" id="imgurl"
-							placeholder="Optional" autofocus />
-					</div>
-
-					<div class="form-group">
 						<label for="sdesc">Brief Details</label>
 						<textarea class="form-control" th:field="*{sDesc}" id="sdesc"
 							rows="2" placeholder="Brief Details" required autofocus></textarea>
@@ -79,6 +74,35 @@
 						<textarea class="form-control" th:field="*{lDesc}" id="ldesc"
 							rows="3" placeholder="Optional" autofocus></textarea>
 					</div>
+					
+					
+					<div class="form-group">
+						<label for="imgurl">Image Url</label> <input type="text"
+							class="form-control" th:field="*{imgUrl}" id="imgurl"
+							placeholder="Image Url or Upload at below" autofocus />							
+					</div>
+					
+				   <div class="form-group">
+				    <label for="imgUpload">Upload an Image</label> 
+				    <input type="file" name="imgFile" id="imgFile"
+							class="form-control"
+							placeholder="Optional" autofocus />							
+				    </div>
+				    
+				    <div class="form-group">
+						<label for="bgImgUrl">Background Image Url</label> <input type="text"
+							class="form-control" th:field="*{bgImgUrl}" id="bgImgUrl"
+							placeholder="Image Url or Upload at below" autofocus />							
+					</div>
+					
+				   <div class="form-group">
+				    <label for="imgUpload">Upload background Image</label> 
+				    <input type="file" name="bgImgFile" id="bgImgFile"
+							class="form-control"
+							placeholder="Optional" autofocus />							
+				    </div>
+					
+					
 					<a type="button" class="btn btn-lg btn-danger noUnderline" th:href="@{../welcome}">Cancel</a>					
 					<button class="pull-right btn btn-lg btn-primary" type="submit">Save</button>
 				</form>
@@ -89,6 +113,14 @@
 			</div>
 	</div>
 	<!-- /.container -->
+	<div id="loading" style="display:none">
+                <ul class="bokeh">
+                    <li></li>
+                    <li></li>
+                    <li></li>                    
+                </ul>
+</div>
+	
 
 	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/moment-with-locales.min.js"></script>
