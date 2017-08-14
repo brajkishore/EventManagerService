@@ -43,13 +43,17 @@ $(function(){
 	
 	
 	//To ellipsis the text of event short description
-	$(".shortDescEllipsis").dotdotdot()	
+	$(".shortDescEllipsis").dotdotdot();	
+		
+
+	$('.showSpinner').on('submit', function(e) { //use on if jQuery 1.7+
+	  $('#loading').show();
+    });
 	
-	$(".eventForm").submit(function(){
-	
-		console.log("pressed to submit");
-	})
-	
+	$('.showSpinner').click(function(e) { //use on if jQuery 1.7+
+		  $('#loading').show();
+	    });
+			
 	
 }).ajaxStart(function () {	
 	console.log("loading start");

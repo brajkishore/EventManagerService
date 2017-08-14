@@ -22,7 +22,7 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="normal"><a href="./welcome">Home</a></li>									
+					<li class="normal"><a class="showSpinner" href="./welcome">Home</a></li>									
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="disabled"><a href="./event">Add Event</a></li>
@@ -40,8 +40,8 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h1 class='login_title text-center'>Add Event</h1>
 				<hr>
-				<form class="card eventForm" th:action="@{./events}" th:object="${event}"
-					method="post" enctype="multipart/form-data">
+				<form class="card eventForm showSpinner" th:action="@{./events}" th:object="${event}"
+					method="post" enctype="multipart/form-data" id="eventForm">
 					<p class="alert alert-danger" th:if="${hasError}"
 						th:text="${error}"></p>
 
@@ -120,6 +120,8 @@
 	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/moment-with-locales.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/custom.js"></script>
+	<script type="text/javascript" src="/js/jquery.dotdotdot.min.js"></script>
 	<script type="text/javascript"
 		src="/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">

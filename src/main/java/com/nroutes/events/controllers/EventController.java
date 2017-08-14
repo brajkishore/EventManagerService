@@ -85,13 +85,19 @@ public class EventController {
 		
 	@Secured ({"ROLE_ADMIN"})
 	@GetMapping("/admin/welcome")
-	public String welcome(Model model) {
-			model.addAttribute("event", new Event());
+	public String welcome(Model model) {		
 			model.addAttribute("events", eventService.findAll());
 			return "welcome";
 	
 	}
 
+	@Secured ({"ROLE_ADMIN"})
+	@GetMapping("/admin/events")
+	public String showEvents(Model model) {						
+			return "redirect:welcome";
+	
+	}
+	
 	@Secured ({"ROLE_ADMIN"})
 	@PostMapping("/admin/events")
 	public String addEvent(@ModelAttribute Event event, BindingResult bindingResult, Model model,
@@ -102,6 +108,8 @@ public class EventController {
 			// errors processing
 			System.out.println("Errors");
 		}
+		
+
 		
 		try {
 			
@@ -137,7 +145,7 @@ public class EventController {
 		}
 
 		model.addAttribute("events", eventService.findAll());
-		return "welcome";
+		return "redirect:welcome";
 
 	}
 
@@ -153,12 +161,11 @@ public class EventController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("hasError", true);
-			model.addAttribute("error", "No such an event.");
-			return "welcome";
+			model.addAttribute("error", "No such an event.");			
 		}
 
 		model.addAttribute("events", eventService.findAll());
-		return "welcome";
+		return "redirect:welcome";
 	}
 	
 		 

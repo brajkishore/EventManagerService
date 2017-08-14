@@ -7,6 +7,7 @@
 <link rel="shortcut icon" href="https://s3.ap-south-1.amazonaws.com/omio/shorticon.ico">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/loading.css" />
 
 
 </head>
@@ -23,7 +24,7 @@
             			Bad Credentials  
         		</p>
         
-			<form class="form-signin" th:action="@{/app-login}"
+			<form class="form-signin showSpinner" th:action="@{/app-login}"
 				 method="post">
 				<span id="reauth-username" class="reauth-username"></span>
 				<p class="input_title">Username</p>
@@ -43,10 +44,18 @@
 	<!-- /.container -->
 
 
-
+<div id="loading" style="display:none">
+                <ul class="bokeh">
+                    <li></li>
+                    <li></li>
+                    <li></li>                    
+                </ul>
+</div>
 
 	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="/js/custom.js"></script>
+	<script type="text/javascript" src="/js/jquery.dotdotdot.min.js"></script>
 
 </body>
 </html>

@@ -6,9 +6,9 @@
 
 <link rel="shortcut icon" href="https://s3.ap-south-1.amazonaws.com/omio/shorticon.ico">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 <link rel="stylesheet" type="text/css" href="/css/loading.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css" />
 
 
 </head>
@@ -39,7 +39,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h1 class='login_title text-center'>Update Event</h1>
 				<hr>
-				<form class="card eventForm" th:action="@{../events}" th:object="${event}"
+				<form class="card eventForm showSpinner" th:action="@{../events}" th:object="${event}"
 					method="post" enctype="multipart/form-data">
 					<p class="alert alert-danger" th:if="${hasError}"
 						th:text="${error}"></p>
@@ -47,12 +47,12 @@
 					<div class="form-group">
 						<label for="datetimepicker1">Schedule Time</label>
 						<div class='input-group date' id='datetimepicker1'>
-							<input type='text' th:field="*{scheduleTime}"
-								class="form-control" placeholder="DD/MM/YYYY hh:mm:ss" required />
+							<input type='text' th:field="*{scheduleTime}" id="scheduleTime"
+								class="form-control" placeholder="DD/MM/YYYY hh:mm:ss" required autofocus />
 							<span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
 							</span>
-						</div>
+						</div> 
 					</div>
 					<div class="form-group" hidden>
 						<input type="text"
@@ -126,6 +126,8 @@
 	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/moment-with-locales.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/custom.js"></script>
+	<script type="text/javascript" src="/js/jquery.dotdotdot.min.js"></script>
 	<script type="text/javascript"
 		src="/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
