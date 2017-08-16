@@ -20,6 +20,8 @@ public class Event {
 	private EventStatus status;
 	private String fcmName;
 	
+	private int priority;
+	
 	private String scheduleTime;
 	public String getScheduleTime() {
 		return scheduleTime;
@@ -89,6 +91,12 @@ public class Event {
 	}
 	public void setBgImgUrl(String bgImgUrl) {
 		this.bgImgUrl = bgImgUrl;
+	}
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 
 	

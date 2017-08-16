@@ -1,7 +1,6 @@
 var $loading = $('#loading').hide();
 $(function(){
-		
-	
+			
 	$(".deleteCard").click(function(){
 		var name=$(this).attr("name");
 		var id=$(this).attr("id");
@@ -49,11 +48,7 @@ $(function(){
 	$('.showSpinner').on('submit', function(e) { //use on if jQuery 1.7+
 	  $('#loading').show();
     });
-	
-	$('.showSpinner').click(function(e) { //use on if jQuery 1.7+
-		  $('#loading').show();
-	    });
-			
+		
 	
 }).ajaxStart(function () {	
 	console.log("loading start");

@@ -1,51 +1,39 @@
-/**
- * 
- */
-package com.nroutes.events.model;
+package com.nroutes.events.common;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.Upload;
+import com.nroutes.events.model.AWSS3Config;
 
-/**
- * @author braj.kishore
- *
- */
-public class AWSFileUploader {	
+public class Util {	
 	
-	private static final String AWSAccessKeyId="xxxxx";
-	private static final String AWSSecretKey="xx";
-	private static final String BucketName="xxxx";
-	private static final String awsURI="xxxxxxx";
-		
-	public String upload(String dataTempDir,String formattedFileName, MultipartFile part){
-		
+	public static String upload(AWSS3Config awss3Config,String dataTempDir,String formattedFileName, MultipartFile part){
+	
 		String url="";
 		try {
 			
-			AWSCredentials credentials = new BasicAWSCredentials(AWSAccessKeyId,AWSSecretKey);
+			AWSCredentials credentials = new BasicAWSCredentials(awss3Config.getAwsAccessKey(),awss3Config.getAwsSecretKey());
 			TransferManager manager = new TransferManager(credentials);	
-			if(manager.getAmazonS3Client().doesObjectExist(BucketName, formattedFileName)){
-				manager.getAmazonS3Client().copyObject(BucketName, formattedFileName, BucketName, formattedFileName+"_"+getTimeStamp());
+			if(manager.getAmazonS3Client().doesObjectExist(awss3Config.getAwsBucketName(), formattedFileName)){
+				manager.getAmazonS3Client().copyObject(awss3Config.getAwsBucketName(), formattedFileName, awss3Config.getAwsBucketName(), formattedFileName+"_"+getTimeStamp());
 				//manager.getAmazonS3Client().deleteObject(BucketName, formattedFileName);
 			}
 						
 			File file=new File(dataTempDir+File.pathSeparator+formattedFileName);
 			part.transferTo(file);
-			Upload upload = manager.upload(BucketName,formattedFileName,file);
+			Upload upload = manager.upload(awss3Config.getAwsBucketName(),formattedFileName,file);
 
 			upload.waitForCompletion();
 			if(upload.isDone()){
 				manager.shutdownNow();
-				url=awsURI+BucketName+"/"+formattedFileName;
+				url=awss3Config.getAwsURI()+awss3Config.getAwsBucketName()+"/"+formattedFileName;
 			}			
 
 			file.delete();
@@ -58,10 +46,11 @@ public class AWSFileUploader {
 	}
 
 
-	private String getTimeStamp(){
+	private static String getTimeStamp(){
 		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HH:mm:ss.SSSZ");
 		return sdf.format(new Date());
 	
 	}
+
 }
